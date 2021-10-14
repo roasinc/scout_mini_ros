@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Communication with the robot's controller -->
+  <node pkg="scout_mini_base" type="scout_mini_base_node" name="scout_mini_base_node" output="screen">
+    <param name="can_device" value="can0"/>
+  </node>
+
+  <!-- Diagnostic aggregator to use rqt_robot_monitor -->
+  <!--node pkg="diagnostic_aggregator" type="aggregator_node" name="diagnostic_aggregator"/-->
+
+  <!-- Load the robot's URDF -->
+  <include file="$(find scout_mini_description)/launch/description.launch"/>
+
+  <!-- Robot controllers -->
+  <include file="$(find scout_mini_control)/launch/control.launch"/>
+
+</launch>

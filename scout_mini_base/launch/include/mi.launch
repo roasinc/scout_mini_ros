@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- MICROINFINITY XG6000 Driver -->
+  <node pkg="mi_ros" type="mi_driver_node" name="mi_driver_node" output="screen">
+    <param name="port" value="/dev/mi"/>
+    <param name="frame_id" value="imu_link"/>
+  </node>
+
+</launch>

@@ -14,7 +14,7 @@ Installation
 cd ~/catkin_ws/src/
 git clone https://github.com/roasinc/scout_mini_ros.git
 cd ~/catkin_ws/src/scout_mini_ros/scout_mini_base/lib/
-sudo dpkg -i ros-melodic-scout-lib-* (your PC architecture)
+sudo dpkg -i ros-melodic-scout-mini-lib-* (your PC architecture)
 
 cd ~/catkn_ws/
 rosdep install --from-paths src --ignore-src -y

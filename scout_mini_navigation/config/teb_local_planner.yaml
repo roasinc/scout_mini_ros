@@ -19,13 +19,13 @@ TebLocalPlannerROS:
   shrink_horizon_min_duration: 10
 
   # Robot
-  max_vel_x: 0.7
+  max_vel_x: 0.5
   max_vel_x_backwards: 0.0
   max_vel_y: 0.0
   max_vel_theta: 1.0
-  acc_lim_x: 0.8
+  acc_lim_x: 0.5
   acc_lim_y: 0.0
-  acc_lim_theta: 0.6
+  acc_lim_theta: 1.0
   min_turning_radius: 0.0         # Not used in diff
   wheelbase: 0.0                  # Not used in diff
   cmd_angle_instead_rotvel: false # Not used in diff

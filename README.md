@@ -10,7 +10,6 @@ ROS packages for Scout Mini
 [Manual](https://docs.roas.co.kr/scout_mini.html)
 
 ## Installation
-
 ```
 cd ~/catkin_ws/src/
 git clone https://github.com/roasinc/scout_mini_ros.git
@@ -21,7 +20,6 @@ catkin_make
 ```
 
 ## Usage
-
 ```
 sudo ip link set can0 up type can bitrate 500000
 roslaunch scout_mini_base base.launch

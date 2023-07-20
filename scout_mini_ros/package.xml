@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>scout_mini_ros</name>
-  <version>0.2.0</version>
+  <version>0.2.1</version>
   <description> 
     The meta package for Scout Mini
   </description>
@@ -14,8 +14,8 @@
   <exec_depend>scout_mini_base</exec_depend>
   <exec_depend>scout_mini_control</exec_depend>
   <exec_depend>scout_mini_description</exec_depend>
+  <exec_depend>scout_mini_lib</exec_depend>
   <exec_depend>scout_mini_msgs</exec_depend>
-  <exec_depend>scout_mini_navigation</exec_depend>
   <export>
     <metapackage/>
   </export>

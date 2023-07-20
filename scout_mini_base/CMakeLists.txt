@@ -9,8 +9,8 @@ find_package(catkin REQUIRED COMPONENTS
   realtime_tools
   std_srvs
   std_msgs
-  scout_mini_msgs
   scout_mini_lib
+  scout_mini_msgs
 )
 
 catkin_package(
@@ -29,7 +29,7 @@ add_dependencies(scout_mini_base_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catk
 target_link_libraries(scout_mini_base_node ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
 install(
-  DIRECTORY config launch lib
+  DIRECTORY launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 

@@ -38,7 +38,6 @@ ScoutMiniBase::ScoutMiniBase(ros::NodeHandle& nh, ros::NodeHandle& nh_priv)
   robot_ = make_shared<ScoutMiniController>(nh_, nh_priv_, robot_state_, motor_state_, driver_state_, light_state_);
   hw_ = make_shared<ScoutMiniHardware>(joint_);
   cm_ = make_shared<controller_manager::ControllerManager>(hw_.get(), nh_);
-  // diagnostics_ = make_shared<RoasDiagnostics>(robot_, feedback_);
 
   sub_light_cmd_ = nh_.subscribe(robot_name_ + "/light/command", 10, &ScoutMiniBase::LightCallback, this);
   clear_failure_ = nh_.advertiseService(robot_name_ + "/clear_failure", &ScoutMiniBase::clearFailure, this);
@@ -73,84 +72,67 @@ bool ScoutMiniBase::clearFailure(std_srvs::Trigger::Request& req, std_srvs::Trig
   return true;
 }
 
-void ScoutMiniBase::publishRobotState()
-{
-  if (rp_robot_state_.trylock())
-  {
-    rp_robot_state_.msg_.header.stamp = ros::Time::now();
-    rp_robot_state_.msg_.normal_state = robot_state_.normal_state;
-    rp_robot_state_.msg_.control_mode = robot_state_.control_mode;
-    rp_robot_state_.msg_.battery_voltage = robot_state_.battery_voltage;
-    rp_robot_state_.msg_.fault_state.battery_under_voltage_failure =
-        robot_state_.fault_state.battery_under_voltage_failure;
-    rp_robot_state_.msg_.fault_state.battery_under_voltage_alarm = robot_state_.fault_state.battery_under_voltage_alarm;
-    rp_robot_state_.msg_.fault_state.loss_remote_control = robot_state_.fault_state.loss_remote_control;
-    rp_robot_state_.unlockAndPublish();
-  }
-}
-
-void ScoutMiniBase::publishMotorState()
-{
-  if (rp_motor_state_.trylock())
-  {
-    rp_motor_state_.msg_.header.stamp = ros::Time::now();
-
-    for (size_t i = 0; i < joint_.size(); i++)
-    {
-      rp_motor_state_.msg_.position[i] = motor_state_.position[i];
-      rp_motor_state_.msg_.velocity[i] = motor_state_.velocity[i];
-      rp_motor_state_.msg_.current[i] = motor_state_.current[i];
-      rp_motor_state_.msg_.temperature[i] = motor_state_.temperature[i];
-    }
-
-    rp_motor_state_.unlockAndPublish();
-  }
-}
-
-void ScoutMiniBase::publishDriverState()
-{
-  if (rp_driver_state_.trylock())
-  {
-    rp_driver_state_.msg_.header.stamp = ros::Time::now();
-
-    for (size_t i = 0; i < joint_.size(); i++)
-    {
-      rp_driver_state_.msg_.driver_voltage[i] = driver_state_.driver_voltage[i];
-      rp_driver_state_.msg_.driver_temperature[i] = driver_state_.driver_temperature[i];
-      rp_driver_state_.msg_.communication_failure[i] = driver_state_.communication_failure[i];
-      rp_driver_state_.msg_.low_supply_voltage[i] = driver_state_.low_supply_voltage[i];
-      rp_driver_state_.msg_.motor_over_temperature[i] = driver_state_.motor_over_temperature[i];
-      rp_driver_state_.msg_.driver_over_current[i] = driver_state_.driver_over_current[i];
-      rp_driver_state_.msg_.driver_over_temperature[i] = driver_state_.driver_over_temperature[i];
-    }
-
-    rp_driver_state_.unlockAndPublish();
-  }
-}
-
-void ScoutMiniBase::publishLightState()
-{
-  if (rp_light_state_.trylock())
-  {
-    rp_light_state_.msg_.header.stamp = ros::Time::now();
-    rp_light_state_.msg_.control_enable = light_state_.control_enable;
-    rp_light_state_.msg_.control_enable = light_state_.control_enable;
-    rp_light_state_.msg_.mode = light_state_.mode;
-    rp_light_state_.msg_.brightness = light_state_.brightness;
-
-    rp_light_state_.unlockAndPublish();
-  }
-}
-
 void ScoutMiniBase::publishLoop()
 {
   while (ros::ok())
   {
-    publishRobotState();
-    publishMotorState();
-    publishDriverState();
-    publishLightState();
-    // diagnostics_->updateDiagnosticsMessage();
+    if (rp_robot_state_.trylock())
+    {
+      rp_robot_state_.msg_.header.stamp = ros::Time::now();
+      rp_robot_state_.msg_.normal_state = robot_state_.normal_state;
+      rp_robot_state_.msg_.control_mode = robot_state_.control_mode;
+      rp_robot_state_.msg_.battery_voltage = robot_state_.battery_voltage;
+      rp_robot_state_.msg_.fault_state.battery_under_voltage_failure =
+          robot_state_.fault_state.battery_under_voltage_failure;
+      rp_robot_state_.msg_.fault_state.battery_under_voltage_alarm =
+          robot_state_.fault_state.battery_under_voltage_alarm;
+      rp_robot_state_.msg_.fault_state.loss_remote_control = robot_state_.fault_state.loss_remote_control;
+      rp_robot_state_.unlockAndPublish();
+    }
+
+    if (rp_motor_state_.trylock())
+    {
+      rp_motor_state_.msg_.header.stamp = ros::Time::now();
+
+      for (size_t i = 0; i < joint_.size(); i++)
+      {
+        rp_motor_state_.msg_.position[i] = motor_state_.position[i];
+        rp_motor_state_.msg_.velocity[i] = motor_state_.velocity[i];
+        rp_motor_state_.msg_.current[i] = motor_state_.current[i];
+        rp_motor_state_.msg_.temperature[i] = motor_state_.temperature[i];
+      }
+
+      rp_motor_state_.unlockAndPublish();
+    }
+
+    if (rp_driver_state_.trylock())
+    {
+      rp_driver_state_.msg_.header.stamp = ros::Time::now();
+
+      for (size_t i = 0; i < joint_.size(); i++)
+      {
+        rp_driver_state_.msg_.driver_voltage[i] = driver_state_.driver_voltage[i];
+        rp_driver_state_.msg_.driver_temperature[i] = driver_state_.driver_temperature[i];
+        rp_driver_state_.msg_.communication_failure[i] = driver_state_.communication_failure[i];
+        rp_driver_state_.msg_.low_supply_voltage[i] = driver_state_.low_supply_voltage[i];
+        rp_driver_state_.msg_.motor_over_temperature[i] = driver_state_.motor_over_temperature[i];
+        rp_driver_state_.msg_.driver_over_current[i] = driver_state_.driver_over_current[i];
+        rp_driver_state_.msg_.driver_over_temperature[i] = driver_state_.driver_over_temperature[i];
+      }
+
+      rp_driver_state_.unlockAndPublish();
+    }
+
+    if (rp_light_state_.trylock())
+    {
+      rp_light_state_.msg_.header.stamp = ros::Time::now();
+      rp_light_state_.msg_.control_enable = light_state_.control_enable;
+      rp_light_state_.msg_.control_enable = light_state_.control_enable;
+      rp_light_state_.msg_.mode = light_state_.mode;
+      rp_light_state_.msg_.brightness = light_state_.brightness;
+
+      rp_light_state_.unlockAndPublish();
+    }
 
     ros::Rate(control_frequency_).sleep();
   }

@@ -1,38 +1,28 @@
-Scout Mini ROS Packages
-=======================
+# scout_mini_ros
+[![Licence](https://img.shields.io/badge/License-BSD--3-green.svg)](https://opensource.org/license/bsd-3-clause/)
+[![ubuntu20](https://img.shields.io/badge/-UBUNTU_20.04-orange?style=flat-square&logo=ubuntu&logoColor=white)](https://releases.ubuntu.com/focal/)
+[![noetic](https://img.shields.io/badge/-NOETIC-blue?style=flat-square&logo=ros)](https://wiki.ros.org/noetic)
 
-Overview
----------
+## Overview
 ROS packages for Scout Mini
 
-[Scout Mini Tutorial](https://docs.roas.co.kr/scout_mini.html)
+[Specification](https://roas.co.kr/scout-mini/)<br>
+[Manual](https://docs.roas.co.kr/scout_mini.html)
 
-Installation
-------------
+## Installation
 
 ```
 cd ~/catkin_ws/src/
 git clone https://github.com/roasinc/scout_mini_ros.git
-cd ~/catkin_ws/src/scout_mini_ros/scout_mini_base/lib/
-sudo dpkg -i ros-melodic-scout-mini-lib-* (your PC architecture)
 
 cd ~/catkn_ws/
 rosdep install --from-paths src --ignore-src -y
 catkin_make
 ```
 
-Start
------
+## Usage
 
 ```
 sudo ip link set can0 up type can bitrate 500000
 roslaunch scout_mini_base base.launch
-```
-
-Upstart
--------
-
-```
-rosrun scout_mini_lib install_upstart -r scout_mini
-sudo reboot
 ```

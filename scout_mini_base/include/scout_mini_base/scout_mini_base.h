@@ -36,7 +36,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "scout_mini_lib/scout_mini_controller.h"
 #include "scout_mini_lib/scout_mini_hardware.h"
-//#include "scout_mini_lib/scout_mini_diagnostics.h"
 
 #include "std_msgs/Bool.h"
 #include "scout_mini_msgs/RobotState.h"
@@ -72,26 +71,6 @@ public:
   bool clearFailure(std_srvs::Trigger::Request& req, std_srvs::Trigger::Response& resp);
 
   /**
-   * \brief Publish robot state
-   */
-  void publishRobotState();
-
-  /**
-   * \brief Publish motor state
-   */
-  void publishMotorState();
-
-  /**
-   * \brief Publish driver state
-   */
-  void publishDriverState();
-
-  /**
-   * \brief Publish light feedback data
-   */
-  void publishLightState();
-
-  /**
    * \brief Loop for publishing
    */
   void publishLoop();
@@ -109,9 +88,6 @@ public:
 
   /// Controller manager for the infrastructure to interact with controllers
   shared_ptr<controller_manager::ControllerManager> cm_;
-
-  /// Diagnostics system to collect information from hardware drivers and robot
-  // shared_ptr<ScoutMiniDiagnostics> diagnostics_;
 
 private:
   /// ROS parameters

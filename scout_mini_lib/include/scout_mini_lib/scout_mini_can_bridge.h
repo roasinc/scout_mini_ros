@@ -76,16 +76,42 @@ private:
 
   void stateCallback(const can::State& s);
 
+  /**
+   * \brief Parse the robot state message
+   * \param data Robot state message converted to binary number
+   */
   void robotState(uint8_t* data);
 
+  /**
+   * \brief Parse the motor state message
+   * \param index Index of motor
+   * \param data Motor state converted to binary number
+   */
   void motorState(size_t index, uint8_t* data);
 
+  /**
+   * \brief Parse the driver state message
+   * \param index Index of driver
+   * \param data Driver state converted to binary number
+   */
   void driverState(size_t index, uint8_t* data);
 
+  /**
+   * \brief Parse the light state message
+   * \param data Light state message converted to binary number
+   */
   void lightState(uint8_t* data);
 
+  /**
+   * \brief Parse the velocity message
+   * \param data Velocity message converted to binary number
+   */
   void velocity(uint8_t* data);
 
+  /**
+   * \brief Parse the battery state message
+   * \param data Battery state message converted to binary number
+   */
   void position(uint8_t* data);
 
   ros::Publisher can_topic_;

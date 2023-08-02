@@ -152,25 +152,25 @@ void CANBridge::frameCallback(const can::Frame& f)
       robotState(data);
       break;
     case 0x251:  // front right motor
-      motorState(1, data);
+      motorState(2, data);
       break;
     case 0x252:  // front left motor
       motorState(0, data);
       break;
     case 0x253:  // rear left motor
-      motorState(2, data);
+      motorState(1, data);
       break;
     case 0x254:  // rear right motor
       motorState(3, data);
       break;
     case 0x261:  // front right motor
-      driverState(1, data);
+      driverState(2, data);
       break;
     case 0x262:  // front left motor
       driverState(0, data);
       break;
     case 0x263:  // rear left motor
-      driverState(2, data);
+      driverState(1, data);
       break;
     case 0x264:  // rear right motor
       driverState(3, data);
@@ -219,6 +219,15 @@ void CANBridge::robotState(uint8_t* data)
 
   robot_state_.battery_voltage =
       static_cast<int16_t>((static_cast<uint16_t>(data[2]) << 8) | static_cast<uint16_t>(data[3])) / 10.0;
+
+  robot_state_.fault_state.battery_under_voltage_failure = bitset<8>(data[5])[0];
+  robot_state_.fault_state.battery_under_voltage_alarm = bitset<8>(data[5])[1];
+  robot_state_.fault_state.loss_remote_control = bitset<8>(data[5])[2];
+
+  driver_state_.communication_failure[2] = bitset<8>(data[5])[3];
+  driver_state_.communication_failure[0] = bitset<8>(data[5])[4];
+  driver_state_.communication_failure[1] = bitset<8>(data[5])[5];
+  driver_state_.communication_failure[3] = bitset<8>(data[5])[6];
 }
 
 void CANBridge::motorState(size_t index, uint8_t* data)
@@ -270,7 +279,6 @@ void CANBridge::lightState(uint8_t* data)
 
 void CANBridge::velocity(uint8_t* data)
 {
-  // scout velocity
   double linear = static_cast<int16_t>((static_cast<uint16_t>(data[0]) << 8) | static_cast<uint16_t>(data[1])) / 1000.0;
   double angular =
       static_cast<int16_t>((static_cast<uint16_t>(data[2]) << 8) | static_cast<uint16_t>(data[3])) / 1000.0;

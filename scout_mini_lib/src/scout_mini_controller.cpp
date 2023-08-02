@@ -59,7 +59,7 @@ bool ScoutMiniController::init()
   light_.id = 0x121;
   light_.dlc = 0x08;
 
-  for (size_t i = 0; i < 4; i++)
+  for (size_t i = 0; i < 8; i++)
   {
     motion_.data[i] = 0x00;
     light_.data[i] = 0x00;

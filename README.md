@@ -10,12 +10,13 @@ ROS packages for Scout Mini
 [Manual](https://docs.roas.co.kr/scout_mini.html)
 
 ## Installation
+### Install packages
 ```
-# Install packages
 cd ~/catkin_ws/src/
 git clone https://github.com/roasinc/scout_mini_ros.git
-
-# Build
+```
+### Build
+```
 cd ~/catkn_ws/
 rosdep install --from-paths src --ignore-src -y
 catkin_make

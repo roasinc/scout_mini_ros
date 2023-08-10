@@ -207,7 +207,6 @@ void CANBridge::robotState(uint8_t* data)
   else if (data[0] == 0x02)
     robot_state_.normal_state = false;
 
-  // TODO: check the unknown bug
   if (data[1] == 0x00)
     robot_state_.control_mode = "IDLE";
   else if (data[1] == 0x01)
@@ -294,7 +293,6 @@ void CANBridge::velocity(uint8_t* data)
 
 void CANBridge::position(uint8_t* data)
 {
-  // scout position
   int32_t left = static_cast<int32_t>((static_cast<uint32_t>(data[0]) << 24) | (static_cast<uint32_t>(data[1]) << 16) |
                                       (static_cast<uint32_t>(data[2]) << 8) | static_cast<uint32_t>(data[3]));
   int32_t right = static_cast<int32_t>((static_cast<uint32_t>(data[4]) << 24) | (static_cast<uint32_t>(data[5]) << 16) |

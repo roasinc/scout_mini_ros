@@ -109,8 +109,8 @@ private:
   void velocity(uint8_t* data);
 
   /**
-   * \brief Parse the battery state message
-   * \param data Battery state message converted to binary number
+   * \brief Parse the position message
+   * \param data Position message converted to binary number
    */
   void position(uint8_t* data);
 

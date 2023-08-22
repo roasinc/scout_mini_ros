@@ -68,13 +68,6 @@ public:
    */
   void receiveMotorState(const MotorState& state);
 
-  /**
-   * \brief Motor state callback
-   * \param linear  Motor state data
-   * \param angular  Motor state data
-   */
-  void writeSpeed(const double linear, const double angular);
-
 private:
   /// Hardware interface
   hardware_interface::JointStateInterface joint_state_interface_;

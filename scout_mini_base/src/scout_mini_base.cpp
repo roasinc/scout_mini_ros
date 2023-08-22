@@ -32,9 +32,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
 ScoutMiniBase::ScoutMiniBase(ros::NodeHandle& nh, ros::NodeHandle& nh_priv)
   : nh_(nh), nh_priv_(nh_priv), robot_name_("scout_mini"), control_frequency_(50.0)
 {
-  nh_priv_.getParam("robot_name", robot_name_);
-  nh_priv_.getParam("control_frequency", control_frequency_);
-
   robot_ = make_shared<ScoutMiniController>(nh_, nh_priv_, robot_state_, motor_state_, driver_state_, light_state_);
   hw_ = make_shared<ScoutMiniHardware>(joint_);
   cm_ = make_shared<controller_manager::ControllerManager>(hw_.get(), nh_);
@@ -87,6 +84,7 @@ void ScoutMiniBase::publishLoop()
       rp_robot_state_.msg_.fault_state.battery_under_voltage_alarm =
           robot_state_.fault_state.battery_under_voltage_alarm;
       rp_robot_state_.msg_.fault_state.loss_remote_control = robot_state_.fault_state.loss_remote_control;
+
       rp_robot_state_.unlockAndPublish();
     }
 
@@ -126,7 +124,6 @@ void ScoutMiniBase::publishLoop()
     if (rp_light_state_.trylock())
     {
       rp_light_state_.msg_.header.stamp = ros::Time::now();
-      rp_light_state_.msg_.control_enable = light_state_.control_enable;
       rp_light_state_.msg_.control_enable = light_state_.control_enable;
       rp_light_state_.msg_.mode = light_state_.mode;
       rp_light_state_.msg_.brightness = light_state_.brightness;

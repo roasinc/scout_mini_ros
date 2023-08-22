@@ -77,11 +77,11 @@ public:
   shared_ptr<CANBridge> can_bridge_;
 
 private:
-  /// ROS
+  /// ROS parameters
   ros::NodeHandle nh_;
   ros::NodeHandle nh_priv_;
 
-  /// SocketCAN
+  /// SocketCAN parameters
   string can_device_;
   can::Frame motion_, light_;
 

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>scout_mini_ros</name>
-  <version>0.2.1</version>
-  <description> 
+  <version>0.2.2</version>
+  <description>
     The meta package for Scout Mini
   </description>
   <maintainer email="shlee@roas.co.kr">Brighten Lee</maintainer>

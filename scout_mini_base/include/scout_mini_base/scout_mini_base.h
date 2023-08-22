@@ -60,7 +60,7 @@ public:
   bool init();
 
   /**
-   * \brief light command callback
+   * \brief Light command callback
    * \param msg Command message
    */
   void LightCallback(const scout_mini_msgs::LightCommand& msg);
@@ -95,7 +95,6 @@ private:
   ros::NodeHandle nh_priv_;
   ros::Subscriber sub_light_cmd_;
 
-  /// rostopic publisher
   realtime_tools::RealtimePublisher<scout_mini_msgs::RobotState> rp_robot_state_;
   realtime_tools::RealtimePublisher<scout_mini_msgs::MotorState> rp_motor_state_;
   realtime_tools::RealtimePublisher<scout_mini_msgs::DriverState> rp_driver_state_;

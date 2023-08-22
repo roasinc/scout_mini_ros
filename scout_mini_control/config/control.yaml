@@ -56,7 +56,7 @@ twist_mux:
     priority: 100
 
   - name    : Navigation
-    topic   : navigation/cmd_vel
+    topic   : move_base/cmd_vel
     timeout : 0.5
     priority: 50
 

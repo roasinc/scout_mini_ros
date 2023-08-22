@@ -57,7 +57,7 @@ struct FaultState
 struct RobotState
 {
   bool normal_state = false;
-  string control_mode = "NONE";  // IDLE, CAN, SERIAL, REMOTE, NONE
+  string control_mode = "NONE";  // IDLE, CAN, REMOTE, NONE
   double battery_voltage = 0.0;
   FaultState fault_state;
 };

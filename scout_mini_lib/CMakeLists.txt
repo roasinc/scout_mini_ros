@@ -3,9 +3,9 @@ project(scout_mini_lib)
 
 add_compile_options(-std=c++14)
 
-find_package(catkin REQUIRED COMPONENTS 
-  roscpp 
-  controller_manager 
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  controller_manager
   hardware_interface
   can_msgs
   socketcan_interface
